@@ -1,6 +1,6 @@
-<!-- app/views/customers/index.html.erb -->
 <h1>Customer List</h1>
 
+<!-- Display all customers -->
 <table border="1">
   <tr>
     <th>ID</th>
@@ -9,7 +9,61 @@
     <th>Email</th>
     <th>Image</th>
   </tr>
-  <% @customers.each do |customer| %>
+  <% @all_customers.each do |customer| %>
+    <tr>
+      <td><%= customer.id %></td>
+      <td><%= customer.full_name %></td>
+      <td><%= customer.phone_number %></td>
+      <td><%= customer.email.presence || "No Email" %></td>
+      <td>
+        <% if customer.image.attached? %>
+          <%= image_tag url_for(customer.image), width: 50, height: 50 %>
+        <% else %>
+          No Image
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<!-- Heading for missing email customers -->
+<h2>Customers with Missing Email</h2>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Full Name</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+    <th>Image</th>
+  </tr>
+  <% @missing_email_customers.each do |customer| %>
+    <tr>
+      <td><%= customer.id %></td>
+      <td><%= customer.full_name %></td>
+      <td><%= customer.phone_number %></td>
+      <td>No Email</td>
+      <td>
+        <% if customer.image.attached? %>
+          <%= image_tag url_for(customer.image), width: 50, height: 50 %>
+        <% else %>
+          No Image
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<!-- Heading for alphabetized customers -->
+<h2>Alphabetized Customers</h2>
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Full Name</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+    <th>Image</th>
+  </tr>
+  <% @alphabetized_customers.each do |customer| %>
     <tr>
       <td><%= customer.id %></td>
       <td><%= customer.full_name %></td>
@@ -17,7 +71,7 @@
       <td><%= customer.email %></td>
       <td>
         <% if customer.image.attached? %>
-          <%= image_tag customer.image, width: 50, height: 50 %>
+          <%= image_tag url_for(customer.image), width: 50, height: 50 %>
         <% else %>
           No Image
         <% end %>

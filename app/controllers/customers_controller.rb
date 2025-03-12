@@ -1,19 +1,12 @@
 class CustomersController < ApplicationController
   def index
-    @customers = Customer.all
-  end
+    # Fetch all customers
+    @all_customers = Customer.all
 
-  def show
-    @customer = Customer.find(params[:id])
-  end
+    # Fetch customers with missing emails
+    @missing_email_customers = Customer.where(email: [nil, ""])
 
-  def missing_email
-    @customers = Customer.where(email: [nil, ""])
-    render :index
-  end
-
-  def alphabetized
-    @customers = Customer.order(:full_name)
-    render :index
+    # Fetch all customers sorted alphabetically
+    @alphabetized_customers = Customer.order(:full_name)
   end
 end
