@@ -1,0 +1,27 @@
+<!-- app/views/customers/index.html.erb -->
+<h1>Customer List</h1>
+
+<table border="1">
+  <tr>
+    <th>ID</th>
+    <th>Full Name</th>
+    <th>Phone Number</th>
+    <th>Email</th>
+    <th>Image</th>
+  </tr>
+  <% @customers.each do |customer| %>
+    <tr>
+      <td><%= customer.id %></td>
+      <td><%= customer.full_name %></td>
+      <td><%= customer.phone_number %></td>
+      <td><%= customer.email %></td>
+      <td>
+        <% if customer.image.attached? %>
+          <%= image_tag customer.image, width: 50, height: 50 %>
+        <% else %>
+          No Image
+        <% end %>
+      </td>
+    </tr>
+  <% end %>
+</table>
